@@ -1,4 +1,4 @@
-import { PlanType } from "./subscription-plan.model";
+import { PlanType } from "./plan-type.enum";
 
 export interface Subscription {
   customerId: string;
@@ -7,4 +7,6 @@ export interface Subscription {
   isAnnual: boolean;
   amountPaid: number;
   status: 'ACTIVE' | 'CANCELLED';
+  nextPlanType?: PlanType;
+  nextIsAnnual?: boolean;
 }

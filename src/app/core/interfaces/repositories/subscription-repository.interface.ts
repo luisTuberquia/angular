@@ -5,4 +5,5 @@ export interface ISubscriptionRepository {
   getByCustomerId(customerId: string): Subscription | null;
   update(subscription: Subscription): void;
   cancel(customerId: string): void;
+  getAll(): Subscription[];
 }

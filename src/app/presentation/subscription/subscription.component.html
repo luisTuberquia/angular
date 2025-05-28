@@ -1,36 +1,115 @@
 <div class="subscription-container">
-  <h2>Gestión de Suscripción</h2>
+  <!-- Formulario de suscripción -->
+  <div class="card form-card">
+    <h2>Gestión de Suscripciones</h2>
 
-  <div class="form-group">
-    <label for="customerId">ID Cliente:</label>
-    <input id="customerId" [(ngModel)]="customerId" placeholder="ID Cliente" />
+    <form #form="ngForm" class="form-group">
+      <!-- ID Cliente -->
+      <div>
+        <label for="customerId">ID Cliente</label>
+        <input
+          id="customerId"
+          [(ngModel)]="customerId"
+          name="customerId"
+          placeholder="ej. 12345"
+        />
+      </div>
+
+      <!-- Selección de plan -->
+      <div>
+        <label for="planSelect">Plan</label>
+        <select
+          id="planSelect"
+          [(ngModel)]="selectedPlan"
+          name="selectedPlan"
+        >
+          <option *ngFor="let p of plans" [value]="p.type">
+            {{ p.name }} — ${{ p.monthlyCost }}/mes
+          </option>
+        </select>
+      </div>
+
+      <!-- Checkbox anualidad -->
+      <div class="checkbox-group">
+        <input
+          type="checkbox"
+          id="annual"
+          [(ngModel)]="isAnnual"
+          name="isAnnual"
+        />
+        <label for="annual">Pago Anual (10% desc.)</label>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn primary"
+          (click)="subscribe()"
+        >
+          Suscribirse
+        </button>
+        <button
+          type="button"
+          class="btn secondary"
+          (click)="update()"
+        >
+          Actualizar
+        </button>
+        <button
+          type="button"
+          class="btn danger"
+          (click)="cancel()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
   </div>
 
-  <div class="form-group">
-    <label for="plan">Plan:</label>
-    <select id="plan" [(ngModel)]="selectedPlan">
-      <option *ngFor="let plan of plans" [value]="plan.type">{{ plan.name }}</option>
-    </select>
+  <!-- Mensaje de reembolso -->
+  <div *ngIf="refundMessage" class="alert">
+    {{ refundMessage }}
   </div>
 
-  <div class="form-group checkbox">
-    <label>
-      <input type="checkbox" [(ngModel)]="isAnnual" />
-      Pago Anual
-    </label>
+  <!-- Sección de suscripción actual -->
+  <div class="card info-card" *ngIf="currentSubscription">
+    <h3>Suscripción Actual</h3>
+    <dl>
+      <dt>Cliente:</dt><dd>{{ currentSubscription.customerId }}</dd>
+      <dt>Plan:</dt><dd>{{ currentSubscription.planType }}</dd>
+      <dt>Pago anual:</dt>
+        <dd>{{ currentSubscription.isAnnual ? 'Sí' : 'No' }}</dd>
+      <dt>Costo:</dt><dd>${{ currentSubscription.amountPaid }}</dd>
+      <dt *ngIf="currentSubscription.nextPlanType">
+        Próximo plan:
+      </dt>
+      <dd *ngIf="currentSubscription.nextPlanType">
+        {{ currentSubscription.nextPlanType }}
+      </dd>
+    </dl>
   </div>
 
-  <div class="button-group">
-    <button (click)="subscribe()">Suscribirse</button>
-    <button (click)="update()">Actualizar</button>
-    <button (click)="cancel()">Cancelar</button>
-  </div>
-
-  <div *ngIf="subscription" class="subscription-info">
-    <h3>Suscripción actual</h3>
-    <p><strong>Cliente:</strong> {{ customerId }}</p>
-    <p><strong>Plan:</strong> {{ subscription.plan.name }}</p>
-    <p><strong>Pago anual:</strong> {{ subscription.isAnnual ? 'Sí' : 'No' }}</p>
-    <p><strong>Costo mensual:</strong> ${{ subscription.plan.monthlyCost }}</p>
+  <!-- Tabla de suscripciones activas -->
+  <div class="card list-card" *ngIf="allSubscriptions.length > 0">
+    <h3>Suscripciones Activas</h3>
+    <table class="subscription-table">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Plan</th>
+          <th>Anual</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of allSubscriptions">
+          <td>{{ s.customerId }}</td>
+          <td>{{ s.planType }}</td>
+          <td>{{ s.isAnnual ? 'Sí' : 'No' }}</td>
+          <td>{{ s.status }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

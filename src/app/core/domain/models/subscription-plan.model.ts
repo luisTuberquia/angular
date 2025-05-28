@@ -1,4 +1,4 @@
-export type PlanType = 'BASIC' | 'STANDARD' | 'PREMIUM';
+import { PlanType } from "./plan-type.enum";
 
 export interface SubscriptionPlan {
   type: PlanType;

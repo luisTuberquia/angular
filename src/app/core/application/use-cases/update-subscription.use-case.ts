@@ -5,15 +5,11 @@ import { ISubscriptionRepository } from "../../interfaces/repositories/subscript
 export class UpdateSubscriptionUseCase {
   constructor(private repository: ISubscriptionRepository) {}
 
-  execute(customerId: string, newPlan: SubscriptionPlan, isAnnual: boolean): void {
-    const existing = this.repository.getByCustomerId(customerId);
-    if (!existing) return;
-
-    const amount = SubscriptionDomainService.calculatePayment(newPlan, isAnnual);
-    existing.planType = newPlan.type;
-    existing.isAnnual = isAnnual;
-    existing.amountPaid = amount;
-
-    this.repository.update(existing);
+  execute(customerId: string, plan: SubscriptionPlan, isAnnual: boolean): void {
+    const sub = this.repository.getByCustomerId(customerId);
+    if (!sub || sub.status !== 'ACTIVE') return;
+    sub.nextPlanType = plan.type;
+    sub.nextIsAnnual = isAnnual;
+    this.repository.update(sub);
   }
 }

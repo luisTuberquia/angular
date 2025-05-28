@@ -4,19 +4,18 @@ import { Subscription } from "../../domain/models/subscription.model";
 export class LocalStorageSubscriptionRepository implements ISubscriptionRepository {
   private key = 'subscriptions';
 
-  private getAll(): Subscription[] {
-    const data = localStorage.getItem(this.key);
-    return data ? JSON.parse(data) : [];
+  getAll(): Subscription[] {
+    return JSON.parse(localStorage.getItem(this.key) || '[]');
   }
 
-  private saveAll(subs: Subscription[]) {
+  private saveAll(subs: Subscription[]): void {
     localStorage.setItem(this.key, JSON.stringify(subs));
   }
 
   save(subscription: Subscription): void {
-    const all = this.getAll().filter(s => s.customerId !== subscription.customerId);
-    all.push(subscription);
-    this.saveAll(all);
+    const subs = this.getAll().filter(s => s.customerId !== subscription.customerId);
+    subs.push(subscription);
+    this.saveAll(subs);
   }
 
   getByCustomerId(customerId: string): Subscription | null {
@@ -28,11 +27,11 @@ export class LocalStorageSubscriptionRepository implements ISubscriptionReposito
   }
 
   cancel(customerId: string): void {
-    const all = this.getAll();
-    const index = all.findIndex(s => s.customerId === customerId);
-    if (index !== -1) {
-      all[index].status = 'CANCELLED';
-      this.saveAll(all);
+    const subs = this.getAll();
+    const index = subs.findIndex(s => s.customerId === customerId);
+    if (index >= 0) {
+      subs[index].status = 'CANCELLED';
+      this.saveAll(subs);
     }
   }
 }

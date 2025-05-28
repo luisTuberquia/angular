@@ -6,7 +6,8 @@ import { ISubscriptionRepository } from "../../interfaces/repositories/subscript
 export class SubscribeUseCase {
   constructor(private repository: ISubscriptionRepository) {}
 
-  execute(customerId: string, plan: SubscriptionPlan, isAnnual: boolean): void {
+  execute(plan: SubscriptionPlan, isAnnual: boolean): string {
+    const customerId = crypto.randomUUID();
     const amount = SubscriptionDomainService.calculatePayment(plan, isAnnual);
     const subscription: Subscription = {
       customerId,
@@ -16,7 +17,7 @@ export class SubscribeUseCase {
       amountPaid: amount,
       status: 'ACTIVE'
     };
-
     this.repository.save(subscription);
+    return customerId;
   }
 }

@@ -6,10 +6,9 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, SubscriptionComponent],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  imports: [SubscriptionComponent],
+  template: `
+    <app-subscription></app-subscription>
+  `
 })
-export class AppComponent {
-  title = 'satrack-subscriptions';
-}
+export class AppComponent {}
