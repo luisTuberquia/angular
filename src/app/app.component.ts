@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
+import { SubscriptionComponent } from "./presentation/subscription/subscription.component";
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, FormsModule, SubscriptionComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'satrack-subscriptions';

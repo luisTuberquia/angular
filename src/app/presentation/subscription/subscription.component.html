@@ -1,0 +1,36 @@
+<div class="subscription-container">
+  <h2>Gestión de Suscripción</h2>
+
+  <div class="form-group">
+    <label for="customerId">ID Cliente:</label>
+    <input id="customerId" [(ngModel)]="customerId" placeholder="ID Cliente" />
+  </div>
+
+  <div class="form-group">
+    <label for="plan">Plan:</label>
+    <select id="plan" [(ngModel)]="selectedPlan">
+      <option *ngFor="let plan of plans" [value]="plan.type">{{ plan.name }}</option>
+    </select>
+  </div>
+
+  <div class="form-group checkbox">
+    <label>
+      <input type="checkbox" [(ngModel)]="isAnnual" />
+      Pago Anual
+    </label>
+  </div>
+
+  <div class="button-group">
+    <button (click)="subscribe()">Suscribirse</button>
+    <button (click)="update()">Actualizar</button>
+    <button (click)="cancel()">Cancelar</button>
+  </div>
+
+  <div *ngIf="subscription" class="subscription-info">
+    <h3>Suscripción actual</h3>
+    <p><strong>Cliente:</strong> {{ customerId }}</p>
+    <p><strong>Plan:</strong> {{ subscription.plan.name }}</p>
+    <p><strong>Pago anual:</strong> {{ subscription.isAnnual ? 'Sí' : 'No' }}</p>
+    <p><strong>Costo mensual:</strong> ${{ subscription.plan.monthlyCost }}</p>
+  </div>
+</div>
