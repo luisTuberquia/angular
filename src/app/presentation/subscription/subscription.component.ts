@@ -30,6 +30,7 @@ export class SubscriptionComponent implements OnInit {
     { type: PlanType.PREMIUM, name: 'Premium', monthlyCost: 30 }
   ];
 
+
   private repository = new LocalStorageSubscriptionRepository();
 
   ngOnInit(): void {
