@@ -6,6 +6,7 @@ export class CancelSubscriptionUseCase {
 
   execute(customerId: string): boolean {
     const sub = this.repository.getByCustomerId(customerId);
+
     if (!sub || sub.status !== 'ACTIVE') return false;
 
     const refundEligible = SubscriptionDomainService.canBeCancelled(sub.startDate);

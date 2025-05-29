@@ -54,4 +54,10 @@ luego para levantar el proyecto en un navegador
 
 ## 4. Patrones de diseño
 
-Patrón de repositorio: Se utiliza este patron de tipo estructural, el cual nos facilita en la abstracción de datos por medio de interfaz
+* Patrón de repositorio: Se utiliza este patron de tipo estructural, el cual nos facilita en la abstracción de datos por medio de interfaz
+
+* Strategy Pattern: Se implementa el (Patrón de estrategia) en las funciones calculatePayment o canBeCancelled, ya que estas permiten cambiar el comportamiento o realizar calculos dinamicos segun su plan de suscripción que se le envie por parametros. 
+
+* Command Patther: la implementacion podemos apreciarla en los casos de uso, debido a que solo se enfocan en realizar una unica acción ya sea de cancelar, actualizar o uactualizar.
+
+
