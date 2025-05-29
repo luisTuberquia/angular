@@ -7,11 +7,12 @@ import { UpdateSubscriptionUseCase } from '../../core/application/use-cases/upda
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PlanType } from '../../core/domain/models/plan-type.enum';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-subscription',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterModule],
   templateUrl: './subscription.component.html',
   styleUrls: ['./subscription.component.css']
 })
@@ -38,9 +39,10 @@ export class SubscriptionComponent implements OnInit {
   subscribe(): void {
     const plan = this.plans.find(p => p.type === this.selectedPlan)!;
     const useCase = new SubscribeUseCase(this.repository);
-    // devuelve el customerId generado
+
     this.customerId = useCase.execute(plan, this.isAnnual);
     this.loadAll();
+    this.customerId = '';
   }
 
   update(): void {
@@ -62,9 +64,5 @@ export class SubscriptionComponent implements OnInit {
   loadAll(): void {
     // carga la suscripción actual (puede ser null)
     this.currentSubscription = this.repository.getByCustomerId(this.customerId);
-    // carga solo las activas
-    this.allSubscriptions = this.repository
-      .getAll()
-      .filter(s => s.status === 'ACTIVE');
   }
 }

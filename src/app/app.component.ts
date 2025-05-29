@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
-import { SubscriptionComponent } from "./presentation/subscription/subscription.component";
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [SubscriptionComponent],
-  template: `
-    <app-subscription></app-subscription>
-  `
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
 })
 export class AppComponent {}

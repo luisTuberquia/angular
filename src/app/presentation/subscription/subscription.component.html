@@ -29,16 +29,18 @@
         </select>
       </div>
 
-      <!-- Checkbox anualidad -->
-      <div class="checkbox-group">
-        <input
-          type="checkbox"
-          id="annual"
-          [(ngModel)]="isAnnual"
-          name="isAnnual"
-        />
-        <label for="annual">Pago Anual (10% desc.)</label>
-      </div>
+      <div class="switch-group">
+  <label class="switch">
+    <input
+      type="checkbox"
+      id="annual"
+      [(ngModel)]="isAnnual"
+      name="isAnnual"
+    />
+    <span class="slider"></span>
+  </label>
+  <label for="annual" class="switch-label">Pago Anual (10% desc.)</label>
+</div>
 
       <!-- Botones de acción -->
       <div class="form-actions">
@@ -63,6 +65,8 @@
         >
           Cancelar
         </button>
+
+        <a routerLink="/subscriptions/active">Ver suscripciones activas</a>
       </div>
     </form>
   </div>
@@ -72,44 +76,36 @@
     {{ refundMessage }}
   </div>
 
-  <!-- Sección de suscripción actual -->
   <div class="card info-card" *ngIf="currentSubscription">
-    <h3>Suscripción Actual</h3>
-    <dl>
-      <dt>Cliente:</dt><dd>{{ currentSubscription.customerId }}</dd>
-      <dt>Plan:</dt><dd>{{ currentSubscription.planType }}</dd>
-      <dt>Pago anual:</dt>
-        <dd>{{ currentSubscription.isAnnual ? 'Sí' : 'No' }}</dd>
-      <dt>Costo:</dt><dd>${{ currentSubscription.amountPaid }}</dd>
-      <dt *ngIf="currentSubscription.nextPlanType">
-        Próximo plan:
-      </dt>
-      <dd *ngIf="currentSubscription.nextPlanType">
-        {{ currentSubscription.nextPlanType }}
-      </dd>
-    </dl>
-  </div>
-
-  <!-- Tabla de suscripciones activas -->
-  <div class="card list-card" *ngIf="allSubscriptions.length > 0">
-    <h3>Suscripciones Activas</h3>
-    <table class="subscription-table">
-      <thead>
-        <tr>
-          <th>Cliente</th>
-          <th>Plan</th>
-          <th>Anual</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let s of allSubscriptions">
-          <td>{{ s.customerId }}</td>
-          <td>{{ s.planType }}</td>
-          <td>{{ s.isAnnual ? 'Sí' : 'No' }}</td>
-          <td>{{ s.status }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <h3>Suscripción Actual</h3>
+  <div class="subscription-summary">
+    <div class="summary-item">
+      <span class="label">Cliente:</span>
+      <span class="value">{{ currentSubscription.customerId }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="label">Plan:</span>
+      <span class="value">{{ currentSubscription.planType }}</span>
+    </div>
+   <div class="summary-item">
+  <span class="label">Pago:</span>
+  <span
+    class="badge"
+    [ngClass]="currentSubscription.isAnnual ? 'badge-annual' : 'badge-monthly'"
+  >
+    {{ currentSubscription.isAnnual ? 'Anual (10% desc.)' : 'Mensual' }}
+  </span>
+</div>
+    <div class="summary-item">
+      <span class="label">Costo:</span>
+      <span class="value">${{ currentSubscription.amountPaid }}</span>
+    </div>
+    <div
+      class="summary-item"
+      *ngIf="currentSubscription.nextPlanType"
+    >
+      <span class="label">Próximo plan:</span>
+      <span class="value">{{ currentSubscription.nextPlanType }}</span>
+    </div>
   </div>
 </div>

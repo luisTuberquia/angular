@@ -1,0 +1,115 @@
+.subscription-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.subscription-table th,
+.subscription-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+.subscription-table thead {
+  background-color: #f5f5f5;
+}
+
+.card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.list-card {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.pagination-controls {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pagination-text {
+  font-weight: bold;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn.secondary {
+  background-color: #eee;
+  color: #333;
+}
+
+.btn.link {
+  background: none;
+  color: #007bff;
+  text-decoration: underline;
+  padding: 0;
+}
+.switch-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 26px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.switch input:checked + .slider {
+  background-color: #4caf50;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+.switch-label {
+  font-size: 14px;
+}

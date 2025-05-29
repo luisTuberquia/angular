@@ -86,4 +86,71 @@
   background-color: #fafafa;
 }
 
+.info-card {
+  background-color: #fdfdfd;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+}
 
+.subscription-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-weight: 600;
+  color: #555;
+}
+
+.value {
+  color: #333;
+}
+
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  font-weight: bold;
+  color: white;
+  display: inline-block;
+}
+
+.badge-annual {
+  background-color: #4caf50; /* verde */
+}
+
+.badge-monthly {
+  background-color: #2196f3; /* azul */
+}
+
+
+/* Contenedor */
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+/* Ocultar checkbox real */
+.toggle-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}

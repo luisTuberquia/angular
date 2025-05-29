@@ -1,5 +1,4 @@
 import { SubscriptionPlan } from "../../domain/models/subscription-plan.model";
-import { SubscriptionDomainService } from "../../domain/services/subscription-domain.service";
 import { ISubscriptionRepository } from "../../interfaces/repositories/subscription-repository.interface";
 
 export class UpdateSubscriptionUseCase {

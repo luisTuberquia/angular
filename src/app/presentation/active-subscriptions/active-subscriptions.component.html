@@ -1,0 +1,46 @@
+<div class="card list-card" *ngIf="paginatedSubscriptions.length > 0">
+  <h3>Suscripciones Activas</h3>
+
+  <table class="subscription-table">
+    <thead>
+      <tr>
+        <th>ID Cliente</th>
+        <th>Próximo Plan</th>
+        <th>Tipo</th>
+        <th>Inicio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of paginatedSubscriptions">
+        <td>{{ s.customerId }}</td>
+        <td>{{ s.nextPlanType || 'N/A' }}</td>
+        <td>{{ s.isAnnual ? 'Anual' : 'Mensual' }}</td>
+        <td>{{ s.startDate | date:'shortDate' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination-controls">
+    <button
+      class="btn secondary"
+      (click)="setPage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Anterior
+    </button>
+
+    <span class="pagination-text">Página {{ currentPage }} de {{ totalPages }}</span>
+
+    <button
+      class="btn secondary"
+      (click)="setPage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Siguiente
+    </button>
+  </div>
+</div>
+
+<div class="form-actions">
+  <a class="btn link" routerLink="/">← Volver</a>
+</div>
