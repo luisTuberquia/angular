@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { SubscriptionPlan } from '../../core/domain/models/subscription-plan.model';
-import { LocalStorageSubscriptionRepository } from '../../core/infrastructure/repositories/local-storage-subscription.repository';
-import { SubscribeUseCase } from '../../core/application/use-cases/subscribe.use-case';
-import { CancelSubscriptionUseCase } from '../../core/application/use-cases/cancel-subscription.use-case';
-import { UpdateSubscriptionUseCase } from '../../core/application/use-cases/update-subscription.use-case';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PlanType } from '../../core/domain/models/plan-type.enum';
 import { RouterModule } from '@angular/router';
+import { CANCEL_SUBSCRIPTION_USE_CASE, SUBSCRIBE_USE_CASE, UPDATE_SUBSCRIPTION_USE_CASE,SUBSCRIPTION_REPOSITORY } from '../../core/infrastructure/repositories/repository-tokens';
+import { ISubscriptionRepository } from '../../core/interfaces/repositories/ISubscriptionRepository';
+import { ISubscribeUseCase } from '../../core/application/Ports/ISubscribeUseCase';
+import { IUpdateSubscriptionUseCase } from '../../core/application/Ports/IUpdateSubscriptionUseCase';
+import { ICancelSubscriptionUseCase } from '../../core/application/Ports/ICancelSubscriptionUseCase';
 
 @Component({
   selector: 'app-subscription',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './subscription.component.html',
   styleUrls: ['./subscription.component.css']
 })
@@ -30,8 +31,12 @@ export class SubscriptionComponent implements OnInit {
     { type: PlanType.PREMIUM, name: 'Premium', monthlyCost: 30 }
   ];
 
-
-  private repository = new LocalStorageSubscriptionRepository();
+  constructor(
+    @Inject(SUBSCRIBE_USE_CASE) private subscribeUseCase: ISubscribeUseCase,
+    @Inject(UPDATE_SUBSCRIPTION_USE_CASE) private updateUseCase: IUpdateSubscriptionUseCase,
+    @Inject(CANCEL_SUBSCRIPTION_USE_CASE) private cancelUseCase: ICancelSubscriptionUseCase,
+    @Inject(SUBSCRIPTION_REPOSITORY) private subscriptionRepository: ISubscriptionRepository
+  ) {}
 
   ngOnInit(): void {
     this.loadAll();
@@ -39,23 +44,20 @@ export class SubscriptionComponent implements OnInit {
 
   subscribe(): void {
     const plan = this.plans.find(p => p.type === this.selectedPlan)!;
-    const useCase = new SubscribeUseCase(this.repository);
-
-    this.customerId = useCase.execute(plan, this.isAnnual);
+    this.customerId = this.subscribeUseCase.execute(plan, this.isAnnual);
     this.loadAll();
     this.customerId = '';
   }
 
   update(): void {
     const plan = this.plans.find(p => p.type === this.selectedPlan)!;
-    new UpdateSubscriptionUseCase(this.repository)
-      .execute(this.customerId, plan, this.isAnnual);
+    this.updateUseCase.execute(this.customerId, plan, this.isAnnual);
+    this.currentSubscription = this.subscriptionRepository.getByCustomerId(this.customerId);
     this.loadAll();
   }
 
   cancel(): void {
-    const refundApplied = new CancelSubscriptionUseCase(this.repository)
-      .execute(this.customerId);
+    const refundApplied = this.cancelUseCase.execute(this.customerId);
     this.refundMessage = refundApplied
       ? '¡Reembolso parcial aplicado!'
       : 'Cancelación realizada sin reembolso.';
@@ -63,7 +65,7 @@ export class SubscriptionComponent implements OnInit {
   }
 
   loadAll(): void {
-    // carga la suscripción actual (puede ser null)
-    this.currentSubscription = this.repository.getByCustomerId(this.customerId);
-  }
+  this.allSubscriptions = this.subscriptionRepository.getAll();
+  this.currentSubscription = this.subscriptionRepository.getByCustomerId(this.customerId);
+}
 }

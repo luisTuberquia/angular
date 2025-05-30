@@ -1,4 +1,4 @@
-import { ISubscriptionRepository } from "../../interfaces/repositories/subscription-repository.interface";
+import { ISubscriptionRepository } from "../../interfaces/repositories/ISubscriptionRepository";
 import { Subscription } from "../../domain/models/subscription.model";
 
 export class LocalStorageSubscriptionRepository implements ISubscriptionRepository {

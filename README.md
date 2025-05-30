@@ -5,28 +5,28 @@
 
 ***
 **Tabla de Contenido**
-1. [Introducción](#id1)
-2. [Levantando la Aplicación](#id2)
+1. [Introducciï¿½n](#id1)
+2. [Levantando la Aplicaciï¿½n](#id2)
     * 2.1. [Pre-Requisitos](#id2.1)
-    * 2.2. [Ejecutando la Aplicación](#id2.2)
+    * 2.2. [Ejecutando la Aplicaciï¿½n](#id2.2)
     * 2.3. [Variables de Entorno](#id2.3)    
 3. [Probando los servicios](#id3)
 4. [Arquitectura de Aplicaciones](#id4)
     * 4.1. [Arquitectura Hexagonal](#id4.1)
 
 
-## 1. Introducción
+## 1. Introducciï¿½n
 ***
-Este proyecto contiene la solución del reto técnico de desarrollo de software en satrack,
-un modelo de suscripciones para una plataforma de streaming, construido en Angular, basado en una arquitectura Clean Architecture y un enfoque de diseño de software centrado en el dominio del negocio. [** DDD**](#id4) 
+Este proyecto contiene la soluciï¿½n del reto tï¿½cnico de desarrollo de software en satrack,
+un modelo de suscripciones para una plataforma de streaming, construido en Angular, basado en una arquitectura Clean Architecture y un enfoque de diseï¿½o de software centrado en el dominio del negocio. [** DDD**](#id4) 
 
-La distribución de módulos y paquetes del proyecto se basa en Clean Architecture
+La distribuciï¿½n de mï¿½dulos y paquetes del proyecto se basa en Clean Architecture
 
 ![Estructura Proyecto ](doc/Estructura_proyecto.png)
 
-## 2. Levantando la Aplicación
+## 2. Levantando la Aplicaciï¿½n
 
-La aplicación permite ejecutarse demanera local, clonandoce el proyecto, una vez clonando utilizaremos los siguientes comandos 
+La aplicaciï¿½n permite ejecutarse demanera local, clonandoce el proyecto, una vez clonando utilizaremos los siguientes comandos 
 
 * npm install
 
@@ -39,25 +39,29 @@ luego para levantar el proyecto en un navegador
 * instalar Angular cli 
 
 
-### 3  Aplicación de principios solid
+### 3  Aplicaciï¿½n de principios solid
 
-* Inversión dependencias (DIP) : Se aplica inversión de dependencias debido a que se están usando interfaces  para realizar abstracciones y no de implementaciones ejemplo IsubscriptionRepository.
+* Inversiï¿½n dependencias (DIP) : Se aplica inversiï¿½n de dependencias debido a que se estï¿½n usando interfaces  para realizar abstracciones y no de implementaciones ejemplo IsubscriptionRepository.
 
-* Abierto y Cerrado (OCP): los módulos están abiertos a que puedan extender dersen sin necesidad de ser modificados, ejemplo de aplicación en los casos de uso.
-
-
-* principio de segregación de interfaces: la interfaz es pequeña y todas sus implementaciones son usadas, es decir no existen métodos o funciones innecesarias (IsubscriptionRepository)
+* Abierto y Cerrado (OCP): los mï¿½dulos estï¿½n abiertos a que puedan extender dersen sin necesidad de ser modificados, ejemplo de aplicaciï¿½n en los casos de uso.
 
 
-* Responsabilidad única (SRP): cada clase tiene una única responsabilidad, y su implementación y cuya implementación de casos de uso fue realizado como lo sugiere el reto cancel-subscription.use-case, update-subscription.use-case, subscription.use-case
+* principio de segregaciï¿½n de interfaces: la interfaz es pequeï¿½a y todas sus implementaciones son usadas, es decir no existen mï¿½todos o funciones innecesarias (IsubscriptionRepository)
 
 
-## 4. Patrones de diseño
-
-* Patrón de repositorio: Se utiliza este patron de tipo estructural, el cual nos facilita en la abstracción de datos por medio de interfaz
-
-* Strategy Pattern: Se implementa el (Patrón de estrategia) en las funciones calculatePayment o canBeCancelled, ya que estas permiten cambiar el comportamiento o realizar calculos dinamicos segun su plan de suscripción que se le envie por parametros. 
-
-* Command Patther: la implementacion podemos apreciarla en los casos de uso, debido a que solo se enfocan en realizar una unica acción ya sea de cancelar, actualizar o uactualizar.
+* Responsabilidad ï¿½nica (SRP): cada clase tiene una ï¿½nica responsabilidad, y su implementaciï¿½n y cuya implementaciï¿½n de casos de uso fue realizado como lo sugiere el reto cancel-subscription.use-case, update-subscription.use-case, subscription.use-case
 
 
+## 4. Patrones de diseï¿½o
+
+* Patrï¿½n de repositorio: Se utiliza este patron de tipo estructural, el cual nos facilita en la abstracciï¿½n de datos por medio de interfaz
+
+* Strategy Pattern: Se implementa el (Patrï¿½n de estrategia) en las funciones calculatePayment o canBeCancelled, ya que estas permiten cambiar el comportamiento o realizar calculos dinamicos segun su plan de suscripciï¿½n que se le envie por parametros. 
+
+* Command Patther: la implementacion podemos apreciarla en los casos de uso, debido a que solo se enfocan en realizar una unica acciï¿½n ya sea de cancelar, actualizar o uactualizar.
+
+* Facade: En la implementaciÃ³n utilizamos el patrÃ³n fachada debido a que nuestra interfaz de UI en angular manifiesta la implementaciÃ³n sencilla, es decir al presionar un botÃ³n o acciÃ³n de la interfaz ejecuta una serie de procesos ocultos al usuario final.
+
+* Facade: En la implementaciÃ³n utilizamos el patrÃ³n fachada debido a que nuestra interfaz de UI en angular manifiesta la implementaciÃ³n sencilla, es decir al presionar un botÃ³n o acciÃ³n de la interfaz ejecuta una serie de procesos ocultos al usuario final.
+
+* Adaptador: En la implementaciÃ³n utilizamos el patrÃ³n Adaptador, el cual podemos apreciar en la clase local-storage-subscription.repository debido a que esta implementando el contrato de la interfaz ISubscriptionRepository por lo cual nos permite salir de esa capa de dominio y conectarnos con fuente de datos diferente en este caso localStorage.
