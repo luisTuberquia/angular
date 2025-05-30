@@ -8,11 +8,8 @@
 1. [Introducci�n](#id1)
 2. [Levantando la Aplicaci�n](#id2)
     * 2.1. [Pre-Requisitos](#id2.1)
-    * 2.2. [Ejecutando la Aplicaci�n](#id2.2)
-    * 2.3. [Variables de Entorno](#id2.3)    
-3. [Probando los servicios](#id3)
-4. [Arquitectura de Aplicaciones](#id4)
-    * 4.1. [Arquitectura Hexagonal](#id4.1)
+3. [Aplicacion de principios solid](#id3)
+4. [Patrones de diseño](#id4)
 
 
 ## 1. Introducci�n
@@ -45,6 +42,7 @@ luego para levantar el proyecto en un navegador
 
 * Abierto y Cerrado (OCP): los m�dulos est�n abiertos a que puedan extender dersen sin necesidad de ser modificados, ejemplo de aplicaci�n en los casos de uso.
 
+* principio de sustitucion   (LSP): * principio de sustitución   (LSP): en el proyecto se está utilizando el principio de sustitución, pero a nivel de interfaces es decir las clases están cumpliento con el contrato y realizan la implementación sin generar errores o alteración de comportamiento esperado.
 
 * principio de segregaci�n de interfaces: la interfaz es peque�a y todas sus implementaciones son usadas, es decir no existen m�todos o funciones innecesarias (IsubscriptionRepository)
 
@@ -56,11 +54,7 @@ luego para levantar el proyecto en un navegador
 
 * Patr�n de repositorio: Se utiliza este patron de tipo estructural, el cual nos facilita en la abstracci�n de datos por medio de interfaz
 
-* Strategy Pattern: Se implementa el (Patr�n de estrategia) en las funciones calculatePayment o canBeCancelled, ya que estas permiten cambiar el comportamiento o realizar calculos dinamicos segun su plan de suscripci�n que se le envie por parametros. 
-
 * Command Patther: la implementacion podemos apreciarla en los casos de uso, debido a que solo se enfocan en realizar una unica acci�n ya sea de cancelar, actualizar o uactualizar.
-
-* Facade: En la implementación utilizamos el patrón fachada debido a que nuestra interfaz de UI en angular manifiesta la implementación sencilla, es decir al presionar un botón o acción de la interfaz ejecuta una serie de procesos ocultos al usuario final.
 
 * Facade: En la implementación utilizamos el patrón fachada debido a que nuestra interfaz de UI en angular manifiesta la implementación sencilla, es decir al presionar un botón o acción de la interfaz ejecuta una serie de procesos ocultos al usuario final.
 

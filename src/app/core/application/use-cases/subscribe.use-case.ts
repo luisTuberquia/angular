@@ -12,12 +12,11 @@ export class SubscribeUseCase implements ISubscribeUseCase
 {constructor(
       @Inject(SUBSCRIPTION_REPOSITORY) private repository: ISubscriptionRepository,
       @Inject(SUBSCRIPTION_DOMAIN_SERVICE) private subscriptionService: ISubscriptionDomainService
-    ) {console.log('subscriptionService:', subscriptionService);}
+    ) {}
 
   execute(plan: SubscriptionPlan, isAnnual: boolean): string {
     const customerId = crypto.randomUUID();
     const calcPayment = this.subscriptionService.calculatePayment;
-    console.log('calcPayment:', calcPayment);
     const amount = calcPayment.call(this.subscriptionService, plan, isAnnual);
     const subscription: Subscription = {
       customerId,
